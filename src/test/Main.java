@@ -3,6 +3,7 @@ package test;
 import utils.ClearComment;
 import utils.Convert;
 import utils.DFA;
+import utils.Matcher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +30,9 @@ public class Main {
     JTextArea defineL = new JTextArea("正规表达式");
     JTextArea DFAArea = new JTextArea("DFA");
     JTextArea ruleArea = new JTextArea("正规文法");
+    JTextField ruleFiled = new JTextField("输入正规表达式", 40);
+    JTextArea inputField = new JTextArea("输入待匹配串");
+    JTextArea resultField = new JTextArea("输出结果");
 
     public static void main(String args[]) {
         Main test = new Main();
@@ -163,36 +167,63 @@ public class Main {
         JButton button32 = new JButton("DFA转正规文法");
         panel31.add(button31);
         panel31.add(button32);
-        JPanel panel32 = new JPanel(new GridLayout(1,2));
+        JPanel panel32 = new JPanel(new GridLayout(1, 2));
         DFAArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         ruleArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-        panel32.add(DFAArea);
         panel32.add(ruleArea);
+        panel32.add(DFAArea);
         card3.add(panel31, BorderLayout.NORTH);
-        card3.add(panel32,BorderLayout.CENTER);
-        button31.addActionListener(e ->{
+        card3.add(panel32, BorderLayout.CENTER);
+        button31.addActionListener(e -> {
             DFA dfa = new DFA(ruleArea.getText());
             String result = dfa.convertRuleToDFA();
             DFAArea.setText(result);
         });
 
-        button32.addActionListener(e ->{
+        button32.addActionListener(e -> {
             DFA dfa = new DFA(DFAArea.getText());
             String result = dfa.convertDFAToRule();
             ruleArea.setText(result);
         });
+        /**
+         * 第三个页面
+         */
 
+        JPanel card4 = new JPanel(new BorderLayout());
+        JPanel panel41 = new JPanel();
+        panel41.add(ruleFiled);
+        ruleFiled.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JButton button41 = new JButton("匹配");
+        panel41.add(button41);
+        card4.add(panel41, BorderLayout.NORTH);
+        inputField.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        resultField.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JPanel panel42 = new JPanel(new GridLayout(1, 2));
+        panel42.add(inputField);
+        panel42.add(resultField);
+        card4.add(panel42, BorderLayout.CENTER);
+        button41.addActionListener(e -> {
+            String forMatch = ruleFiled.getText();
+            String waitMatch = inputField.getText();
+            Matcher matcher = new Matcher(forMatch, waitMatch);
+            if (matcher.match()) {
+                resultField.setText("匹配成功");
+            } else {
+                resultField.setText("匹配失败");
+            }
+        });
 
         JPanel card5 = new JPanel(new BorderLayout());
         card5.add(new TextArea("Coded by B12040328"), BorderLayout.CENTER);
         /**
-         * 最后一个页面
+         * 第五个页面
          */
 
         cards = new JPanel(new CardLayout());
         cards.add(card1, "1");
         cards.add(card2, "2");
         cards.add(card3, "3");
+        cards.add(card4, "4");
         cards.add(card5, "5");
         frame.add(cards);
         frame.setVisible(true);
