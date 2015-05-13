@@ -251,7 +251,7 @@ public class Main {
         if (content.equals("")) {
             newFile.setText("Text is empty! You havn't input any code!\n");
         } else {
-            int i = 0;
+            int i;
             int N = content.length();
             int state = 0;
             for (i = 0; i < N; i++) {
@@ -290,7 +290,6 @@ public class Main {
                             newFile.append("line: " + line + " row: " + row + " error: '" + c + "' Undefined character! \n");
                         break;
                     case 1://标识符为 +
-                        //row++;
                         if (c == '+') {
                             state = 0;
                             newFile.append("info:1 运算符:'++'\n");
@@ -330,14 +329,12 @@ public class Main {
                         if (c == '/') {
                             if ((c = content.charAt(i + 1)) == '*')
                                 state = 3;
-
                             else {
                                 while ((c) != '\n') {
                                     c = content.charAt(i);
                                     i++;
                                 }
                                 System.out.println("");
-                                c = content.charAt(i);
                                 state = 0;
                                 newFile.append("info:4 注释部分:// \n");
                             }
@@ -403,7 +400,6 @@ public class Main {
                             String id = content.substring(begin, end);
                             if (isKey(id))
                                 newFile.append("info：关键字 : " + id + '\n');
-                                //error_text.appendText("info  ? :   10" + id + '\n');
                             else
                                 newFile.append("info：标识符  :" + id + '\n');
                             i--;
@@ -415,7 +411,6 @@ public class Main {
                         if (c == 'e' || c == 'E')
                             state = 13;
                         else if (isDigit(c) || c == '.') {
-
                         } else {
                             if (isLetter(c)) {
                                 newFile.append("error: line " + line + " row " + row + " ????\n");
