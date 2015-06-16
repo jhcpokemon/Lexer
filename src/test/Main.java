@@ -1,4 +1,4 @@
-package test;
+package src.test;
 
 import utils.ClearComment;
 import utils.Convert;

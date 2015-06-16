@@ -1,7 +1,5 @@
-package utils;
-
+package src.utils;
 import model.Part;
-
 /**
  * Created by jhcpokemon on 05/12/15.
  */
